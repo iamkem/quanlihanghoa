@@ -52,10 +52,18 @@ public class Controller {
     private ArrayList<HangHoa> ketquatimkiem = new ArrayList<>();
     public static boolean daluuchua = true;
 
+    public static boolean luuthanhcong = false;
+
     public static int updatedata = -1;
+
+    public static boolean dangnhapthanhcong = false;
 
     public Timeline timeline = new Timeline(
             new KeyFrame(Duration.millis(100), f -> {
+                if (dangnhapthanhcong && (!luuthanhcong)) {
+                    loadDuLieu();
+                }
+
                 //Giới hạn chức năng của nhân viên
                 if (DangNhapController.aidangdangnhap.compareTo("administrator") != 0) {
                     btmodl.setDisable(true);
@@ -114,6 +122,25 @@ public class Controller {
         return "";
     }
 
+    public void taiLaiDuLieuTatCa() throws IOException {
+        taiLaiDuLieu(0);//Tải dữ liệu cho bảng hàng hóa
+        taiLaiDuLieu(1);//...cho bảng danh mục
+        taiLaiDuLieu(2);//...cho bảng nhà cung cấp
+        taiLaiDuLieu(3);//...cho bảng nhân viên
+        taiLaiDuLieu(4);//...cho bảng khách hàng
+        taiLaiDuLieu(5);//...cho bảng hóa đơn
+    }
+
+    public void datLaiDuLieu(File file) {
+        try {
+            Main.file = file;
+            Main.temp_data = DataSerialization.readData(Main.file);
+            ketquatimkiem = Main.temp_data.getHanghoa();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void btmodlClick(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
         FileChooser filechooser = new FileChooser();
         filechooser.setInitialDirectory(new File(Paths.get(".").toAbsolutePath().normalize().toString()));
@@ -121,15 +148,29 @@ public class Controller {
         filechooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Quản Lý Hàng Hóa *.qlh", "*.qlh"));
         File file = filechooser.showOpenDialog(null);
         if (file != null) {
-            Main.file = file;
-            Main.temp_data = DataSerialization.readData(Main.file);
-            ketquatimkiem = Main.temp_data.getHanghoa();
-            taiLaiDuLieu(0);//Tải dữ liệu cho bảng hàng hóa
-            taiLaiDuLieu(1);//...cho bảng danh mục
-            taiLaiDuLieu(2);//...cho bảng nhà cung cấp
-            taiLaiDuLieu(3);//...cho bảng nhân viên
-            taiLaiDuLieu(4);//...cho bảng khách hàng
-            taiLaiDuLieu(5);//...cho bảng hóa đơn
+            datLaiDuLieu(file);
+            taiLaiDuLieuTatCa();
+        }
+    }
+
+    public void loadDuLieu() {
+        try {
+            Properties prop = new Properties();
+            prop.load(getClass().getResourceAsStream("/sample/config.properties"));
+            String path = prop.getProperty("path");
+            if (path != null) {
+                String pathname = System.getProperty("user.dir") + "/src/" + path;
+                File file = new File(pathname);
+
+                datLaiDuLieu(file);
+                taiLaiDuLieuTatCa();
+
+                luuthanhcong = true;
+
+                System.out.println("Load dữ liệu thành công " + pathname);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

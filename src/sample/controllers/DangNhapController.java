@@ -30,6 +30,8 @@ public class DangNhapController {
         String mk = tfmk.getText();
         if(loginAdmin(sdt, mk) || loginUser(sdt, mk)) {
             tfsdt.getScene().getWindow().hide();
+            Controller.dangnhapthanhcong = true;
+            System.out.println("Đăng nhập thành công! ID:" + aidangdangnhap + " SDT:" + sdt + " MK:" + mk);
         }
     }
 
