@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="sample.controllers.GioiThieuChuongTrinh"
+      prefHeight="900.0" prefWidth="700.0" spacing="20">
+    <HBox spacing="15" styleClass="hbox">
+
+        <ImageView fitHeight="100" preserveRatio="true">
+            <Image url="@../medias/icon.png"/>
+        </ImageView>
+        <VBox spacing="15">
+            <Label text="Quản Lý Bán Hàng"/>
+            <Label text="Phiên bản: 1.0"/>
+            <Label text="Tác giả: Kem"/>
+        </VBox>
+    </HBox>
+    <VBox alignment="CENTER" spacing="15" styleClass="vbox">
+        <Label text="Bản quyền 2019 MinKool.  Liên hệ: hoangdinhthangloi@gmail.com"/>
+        <Button text="Đóng" onAction="#btcloseClick" fx:id="btclose"/>
+    </VBox>
+</VBox>

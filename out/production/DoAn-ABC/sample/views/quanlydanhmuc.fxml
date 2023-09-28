@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="sample.controllers.QuanLyDanhMucController"
+      prefHeight="400.0" prefWidth="600.0" spacing="10" id="QLDM">
+    <Label text="QUẢN LÝ DANH MỤC" styleClass="tieude"/>
+    <HBox spacing="5">
+        <Label text="Tên Danh Mục:"/>
+        <TextField fx:id="tftendm"/>
+    </HBox>
+    <HBox spacing="5">
+        <Label text="Biểu Tượng:&#xD;(100x100px)"/>
+        <ImageView fx:id="imvbieutuong" onMouseClicked="#imvbieutuongClick" onMouseEntered="#imvbieutuongMouseEntered"/>
+    </HBox>
+    <HBox styleClass="nutchucnang" spacing="5">
+        <Button text="Thêm Mới" onAction="#btthemmoidanhmucClick" fx:id="btthemmoidanhmuc"/>
+        <Button text="Cập Nhật" fx:id="btcapnhat" onAction="#btcapnhat"/>
+        <Button text="Xóa" fx:id="btxoa" onAction="#btxoaClick"/>
+        <Button text="Hủy" onAction="#bthuyClick" fx:id="bthuy"/>
+    </HBox>
+</VBox>
